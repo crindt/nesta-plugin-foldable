@@ -13,7 +13,8 @@ module Nesta
 
   class Page
     alias_method :pre_fold_summary, :summary
-    def summary
+    def summary(scope = nil)
+
       result = pre_fold_summary
       return result if result && !result.empty?
 
@@ -21,7 +22,7 @@ module Nesta
 
       if body_markup_text.include? '~~fold~~'
         summary_text = body_markup_text.sub(/^[^\n]*~~fold~~.*\Z/m, '');
-        convert_to_html(@format, nil, summary_text)
+        convert_to_html(@format, scope, summary_text)
       else
         nil
       end
